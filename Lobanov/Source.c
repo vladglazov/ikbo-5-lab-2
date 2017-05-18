@@ -5,12 +5,21 @@
 int main(void) {
 
 	FILE *fp;
-	char buffer[255],*com;
+	char buffer[255],name[255],*com;
 	long int b[10];
 	DLLIST *curr;
 	size_t i=-1;
+	
+	printf("Enter file name:\n");
+	scanf("%s", name);
+	
+	fp = fopen(name, "r");
+	while(fp==NULL){
+		printf("Eror.Try again.");
+		scanf("%s", name);
+		fp = fopen(name, "r");
+	}
 
-	fp = fopen("data.txt", "r");
 	curr=DLCreate();
 	
 	while (fgets(buffer, 256, fp)) {
