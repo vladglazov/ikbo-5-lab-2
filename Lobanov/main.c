@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,27 +6,19 @@
 int main(void) {
 
 	FILE *fp;
-	char buffer[255],name[255],*com;
+	char buffer[255],com[255],name[255];
 	long int b[10];
 	DLLIST *curr;
 	size_t i=-1;
-	
-	printf("Enter file name:\n");
+	printf("Please enter file name:\n");
 	scanf("%s", name);
-	
 	fp = fopen(name, "r");
-	while(fp==NULL){
-		printf("Eror.Try again.");
-		scanf("%s", name);
-		fp = fopen(name, "r");
-	}
-
 	curr=DLCreate();
-	
+
 	while (fgets(buffer, 256, fp)) {
 
-		com = delsp(buffer);
-		
+		delsp(buffer,com);
+
 		if (!strcmp(com, "movl")) {
 			if (curr->prev == NULL) {
 				DLAddBefore(curr);
@@ -45,7 +38,7 @@ int main(void) {
 				curr = curr->next;
 			continue;
 		}
-		
+
 		if (!strcmp(com, "inc")) {
 			if (curr->data > 255) {
 				printf("Too big value. Can't increase.\n");
@@ -80,8 +73,8 @@ int main(void) {
 			printf("Your symbol: %c\n", curr->data);
 			continue;
 		}
-		
-		
+
+
 		if (!strcmp(com, "begin")) {
 			i++;
 			b[i] = ftell(fp);
@@ -93,7 +86,7 @@ int main(void) {
 		}
 
 		if (!strcmp(com, "end")) {
-			
+
 			if (i == -1) {
 				printf("Eror.Miss begin");
 				break;
@@ -106,7 +99,7 @@ int main(void) {
 			i--;
 			continue;
 		}
-		
+
 		if (!strcmp(com, "skip")) {
 			continue;
 		}

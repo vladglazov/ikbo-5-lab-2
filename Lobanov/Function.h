@@ -1,8 +1,8 @@
 typedef struct DLLIST {
-	DLLIST *next;
-	DLLIST *prev;
+	struct DLLIST *next;
+	struct DLLIST *prev;
 	int data;
-};
+} DLLIST;
 
 DLLIST* DLCreate() {
 	DLLIST *NewItem;
@@ -53,22 +53,23 @@ void DestroyDL(DLLIST *current) {
 	GetFirst(current);
 	while (current->next != NULL) {
 		Next = current->next;
-		free(current);
+        free(current);
+        current = Next;
 	}
+	free(current);
 	return;
 }
-char* delsp(char* buffer) {
+void delsp(char* buffer, char *com) {
 	int i, j = 0;
 	char command[255];
 	for (i = 0; buffer[i] != '\0'; i++)
 		if (buffer[i] != ' ' && buffer[i] != '\n' && buffer[i] != '\t') {
 			command[j] = buffer[i];
 			if (command[0] == '*') {
-				strcpy(command, "skip");
-				return(command);
+				strcpy(com, "skip");
 			}
 			j++;
 		}
 	command[j] = '\0';
-	return(command);
+	strcpy(com,command);
 }
