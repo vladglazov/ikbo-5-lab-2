@@ -3,16 +3,27 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Function.h"
-int main(void) {
+int main(int argc, char **argv) {
 
 	FILE *fp;
 	char buffer[255],com[255],name[255];
 	long int b[10];
 	DLLIST *curr;
 	size_t i=-1;
-	printf("Please enter file name:\n");
-	scanf("%s", name);
+
+	if (argc != 2) {
+		printf("Please enter file name:\n");
+		scanf("%s", name);
+	}
+	else
+		strcpy(name, argv[1]);
 	fp = fopen(name, "r");
+	while (fp==NULL) {
+		printf("Can't open file.Try again:\n");
+		scanf("%s", name);
+		fp = fopen(name, "r");
+	}
+
 	curr=DLCreate();
 
 	while (fgets(buffer, 256, fp)) {
@@ -76,6 +87,15 @@ int main(void) {
 
 
 		if (!strcmp(com, "begin")) {
+            if (curr->data==0){
+                while(1){
+                    if (fgets(buffer, 256, fp)==0)
+                        return 0;
+                    delsp(buffer,com);
+                    if (!strcmp(com,"end"))
+                        break;
+                }
+            }
 			i++;
 			b[i] = ftell(fp);
 			if (i > 9) {

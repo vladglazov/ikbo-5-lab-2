@@ -53,23 +53,20 @@ void DestroyDL(DLLIST *current) {
 	GetFirst(current);
 	while (current->next != NULL) {
 		Next = current->next;
-        free(current);
-        current = Next;
+		free(current);
 	}
-	free(current);
 	return;
 }
-void delsp(char* buffer, char *com) {
+void delsp(char* buffer, char *command) {
 	int i, j = 0;
-	char command[255];
 	for (i = 0; buffer[i] != '\0'; i++)
 		if (buffer[i] != ' ' && buffer[i] != '\n' && buffer[i] != '\t') {
 			command[j] = buffer[i];
 			if (command[0] == '*') {
-				strcpy(com, "skip");
+				strcpy(command, "skip");
+				break;
 			}
 			j++;
 		}
 	command[j] = '\0';
-	strcpy(com,command);
 }
