@@ -59,18 +59,7 @@ int main(int argc, char *argv[])
     while(commands->llist)commands=commands->llist;
     while(commands){NewEl=commands; DoCommands(&cellp,&commands);commands=commands->rlist;}
     FreeBuf(&NewEl);
-    putchar('\n');
-    putchar('\n');
-    while ((cellp->llist)!=NULL) cellp=cellp->llist;
-    while ((cellp->rlist!=NULL))
-    {
-        printf("%d\t", cellp->value);
-        cellp=cellp->rlist;
-        free(cellp->llist);
-    }
-    printf("%d\t", cellp->value);
     free(cellp);
-    putchar('\n');
     fclose(fp);
     fflush(stdin);
     printf("Press any key");
