@@ -154,7 +154,7 @@ int main(int argc, char *argv[]) {
 long int AddCommand(char *rout, char *Commands) { 
 	static long int i = 0;
 	int j = 0;
-	while ((rout[j] == '/t') || (rout[j] == ' '))
+	while ((rout[j] == '\t') || (rout[j] == ' '))
 		 j++;
 	if (rout[j] == 'm' && rout[j + 3] == 'l')
 		 Commands[i] = 'l';
